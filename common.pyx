@@ -3,6 +3,7 @@ import random
 from functools import reduce
 
 from bitarray import bitarray
+from scipy.special import lambertw
 
 def gcd(a, b):
     """Return greatest common divisor using Euclid's Algorithm."""
@@ -68,3 +69,19 @@ def miller_rabin(n, s):
         if witness(a, n):
             return False
     return True
+
+def primes(long n):
+    cdef long x, y
+    if n <= 2:
+        return []
+    sieve = [True] * (n+1)
+    for x in range(3, int(n**0.5)+1, 2):
+        for y in range(3, (n//x)+1, 2):
+            sieve[(x*y)]=False
+
+    return [2]+[i for i in range(3, n, 2) if sieve[i]]
+
+def nthprime(n):
+    upper = int((-n*lambertw(-1/n, -1)).real)
+    p = primes(upper)
+    return p[n-1]
