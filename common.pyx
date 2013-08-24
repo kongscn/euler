@@ -1,5 +1,6 @@
 import math
 import random
+from collections import defaultdict
 from functools import reduce
 
 from bitarray import bitarray
@@ -70,6 +71,18 @@ def miller_rabin(n, s):
             return False
     return True
 
+def primefactorize(long long number):
+    cdef long divider
+    divider = 2
+    factors = defaultdict(int)
+    while number > 1:
+        if number % divider == 0:
+            number /= divider
+            factors[divider] += 1
+        else:
+            divider += 1
+    return factors
+
 def primes(long n):
     cdef long x, y
     if n <= 2:
@@ -80,6 +93,11 @@ def primes(long n):
             sieve[(x*y)]=False
 
     return [2]+[i for i in range(3, n, 2) if sieve[i]]
+
+def nprimes(long n):
+    upper = int((-n*lambertw(-1/n, -1)).real)
+    p = primes(upper)
+    return p[:n]
 
 def nthprime(n):
     upper = int((-n*lambertw(-1/n, -1)).real)
