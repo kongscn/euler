@@ -14,4 +14,7 @@ def as2darray(s):
     lines = s.splitlines()
     lines = [list(map(int, line.split())) for line in lines]
     return np.array(lines)
-
+    
+def asllist(s):
+    lines = s.splitlines()
+    return [list(map(int, line.split())) for line in lines if line]
