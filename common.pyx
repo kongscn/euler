@@ -24,7 +24,7 @@ def pseudo_prime(n, a=2):
     return a**(n-1)%n == 1
 
 def isPrime(n):
-    if n < 2: raise ValueError
+    if n < 2: return False
     if n == 2: return True
     if n == 3: return True
     for i in range(3, int(math.sqrt(n))+1, 2):
